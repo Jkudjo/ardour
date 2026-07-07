@@ -98,6 +98,21 @@ need pkg-config
 need gcc
 need g++
 
+if [ -d .git ] && ! git describe HEAD >/dev/null 2>&1; then
+    cat >&2 <<'EOF'
+missing Git tags needed for Ardour version detection
+
+Fetch tags for this checkout, then rerun this script:
+
+  git fetch --tags origin
+
+If you made a shallow clone, also run:
+
+  git fetch --unshallow origin
+EOF
+    exit 1
+fi
+
 if [ ! -f /usr/include/jpeglib.h ]; then
     cat >&2 <<'EOF'
 missing required header: jpeglib.h
