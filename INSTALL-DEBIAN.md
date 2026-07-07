@@ -18,7 +18,7 @@ dependencies:
 ```sh
 sudo apt update
 sudo apt build-dep ardour
-sudo apt install build-essential python3 pkg-config git
+sudo apt install build-essential python3 pkg-config git itstool
 ```
 
 If `apt build-dep ardour` says source repositories are disabled, enable `deb-src`
@@ -42,20 +42,6 @@ Or build without JACK support:
 
 ```sh
 scripts/debian-local-install.sh --backends alsa,pulseaudio
-```
-
-If configure crashes with `ValueError: invalid literal for int()` and mentions
-`fatal: No names found, cannot describe anything`, your checkout is missing Git
-tags. Fetch them before building:
-
-```sh
-git fetch --tags origin
-```
-
-If the clone is shallow, also run:
-
-```sh
-git fetch --unshallow origin
 ```
 
 ## Build And Install For Your User

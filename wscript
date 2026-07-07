@@ -174,6 +174,10 @@ def fetch_git_revision_date ():
     cmd = ["git", "describe", "HEAD"]
     output = subprocess.Popen(cmd, stderr=subprocess.STDOUT, stdout=subprocess.PIPE).communicate()[0].splitlines()
     rev = re.sub(r"^[A-Za-z0-9]*\+", "", output[0].decode('utf-8'))
+    if rev.startswith('fatal:'):
+        cmd = ["git", "rev-parse", "--short", "HEAD"]
+        output = subprocess.Popen(cmd, stderr=subprocess.STDOUT, stdout=subprocess.PIPE).communicate()[0].splitlines()
+        rev = '7.0-0-g' + output[0].decode('utf-8')
 
     cmd = ["git", "log", "-1", "--pretty=format:%ci", "HEAD"]
     output = subprocess.Popen(cmd, stderr=subprocess.STDOUT, stdout=subprocess.PIPE).communicate()[0].splitlines()
